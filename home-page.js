@@ -10,7 +10,7 @@ export default class HomePage extends Component{
       <TouchableOpacity style = {styles.button} onPress = {() => {this.props.navigation.navigate('UsersPage')}}>
         <Text style = {styles.buttonText}> Users </Text>
       </TouchableOpacity> 
-      <TouchableOpacity style = {styles.button}>
+      <TouchableOpacity style = {styles.button} onPress = {() => {this.props.navigation.navigate('PostsPage')}}>
         <Text style = {styles.buttonText}> Posts </Text>
       </TouchableOpacity> 
     </SafeAreaView>
