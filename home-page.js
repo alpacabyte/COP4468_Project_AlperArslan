@@ -6,6 +6,7 @@ export default class HomePage extends Component{
   render(){ return(
     <SafeAreaView style={styles.container}>
      <Text style = {styles.paragraph}> Alper Arslan </Text> 
+     <Text style = {styles.paragraph}> 1804777 </Text> 
       <Text style = {styles.paragraph}> COP4468 Project </Text> 
       <TouchableOpacity style = {styles.button} onPress = {() => {this.props.navigation.navigate('UsersPage')}}>
         <Text style = {styles.buttonText}> Users </Text>

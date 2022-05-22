@@ -2,15 +2,21 @@ import React, {useEffect, useState} from 'react';
 import { Text, View, StyleSheet, FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
 import Constants from 'expo-constants';
 
+
+
 export default function PostsPage() {
 
+  const [isLoaded, setLoaded] = useState(false);
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
+    useEffect(() => {
+    if (!isLoaded){
     fetch("https://jsonplaceholder.typicode.com/posts").then(response => response.json()).then(posts => {
       setPosts(posts.slice(0, 20));
-    });
+      setLoaded(true);
+    });}
   });
+  
 
   return (
     <SafeAreaView style={styles.container}>

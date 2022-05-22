@@ -2,14 +2,19 @@ import React, {useEffect, useState} from 'react';
 import { Text, View, StyleSheet, FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
 import Constants from 'expo-constants';
 
-export default function UsersPage() {
+
+export default function UsersPage({navigation}) {
 
   const [users, setUsers] = useState([]);
+  const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users").then(response => response.json()).then(users => {
+     if (!isLoaded){
+       fetch("https://jsonplaceholder.typicode.com/users").then(response => response.json()).then(users => {
       setUsers(users);
+      setLoaded(true);
     });
+    }
   });
 
   return (
@@ -20,9 +25,7 @@ export default function UsersPage() {
       <FlatList
       data = {users}
       keyExtractor = {({id}, index) => id}
-      renderItem = {({item}) => (<TouchableOpacity onPress = {()=>{
-        console.log(item.id);
-      }}> 
+      renderItem = {({item}) => (<TouchableOpacity onPress = {() => {navigation.navigate('UserPage', {id: item.id})}}> 
         <View style = {{borderBottomWidth : 1, marginBottom: 3}}>
         <Text style = {styles.userText}> {item.name}</Text> 
         </View>
