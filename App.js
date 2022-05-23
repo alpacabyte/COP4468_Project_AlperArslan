@@ -4,10 +4,11 @@ import React, {Component} from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
-import HomePage from './home-page.js';
-import UsersPage from './users-page.js';
-import PostsPage from './posts-page.js';
-import UserPage from './user-page.js';
+import HomePage from './components/home-page.js';
+import UsersPage from './components/users-page.js';
+import PostsPage from './components/posts-page.js';
+import UserPage from './components/user-page.js';
+import PostPage from './components/post-page.js';
 
 const AppNavigator = createStackNavigator(
   {
@@ -15,6 +16,7 @@ const AppNavigator = createStackNavigator(
     UsersPage: {screen: UsersPage},
     PostsPage: {screen: PostsPage},
     UserPage: {screen: UserPage},
+    PostPage: {screen: PostPage},
   },
   {
     initialRouteName: 'HomePage',

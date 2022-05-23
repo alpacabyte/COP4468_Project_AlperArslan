@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 
 
 
-export default function PostsPage() {
+export default function PostsPage({navigation}) {
 
   const [isLoaded, setLoaded] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -26,9 +26,7 @@ export default function PostsPage() {
       <FlatList
       data = {posts}
       keyExtractor = {({id}, index) => id}
-      renderItem = {({item}) => (<TouchableOpacity onPress = {()=>{
-        console.log(item.id);
-      }}> 
+      renderItem = {({item}) => (<TouchableOpacity onPress = {() => {navigation.navigate('PostPage', {id: item.id})}}> 
         <View style = {{borderBottomWidth : 1, marginBottom: 3}}>
         <Text style = {styles.postText}> #{item.id}-{item.title}</Text> 
         </View>

@@ -5,15 +5,19 @@ import Constants from 'expo-constants';
 export default class HomePage extends Component{
   render(){ return(
     <SafeAreaView style={styles.container}>
+    <View style = {styles.container}>
      <Text style = {styles.paragraph}> Alper Arslan </Text> 
      <Text style = {styles.paragraph}> 1804777 </Text> 
       <Text style = {styles.paragraph}> COP4468 Project </Text> 
+    </View>
+    <View style = {styles.bottomContainer}>
       <TouchableOpacity style = {styles.button} onPress = {() => {this.props.navigation.navigate('UsersPage')}}>
         <Text style = {styles.buttonText}> Users </Text>
       </TouchableOpacity> 
       <TouchableOpacity style = {styles.button} onPress = {() => {this.props.navigation.navigate('PostsPage')}}>
         <Text style = {styles.buttonText}> Posts </Text>
       </TouchableOpacity> 
+    </View>
     </SafeAreaView>
     )}
 }
@@ -21,9 +25,18 @@ export default class HomePage extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: Constants.statusBarHeight,
+    marginTop: 50,
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+  bottomContainer: {
+    flex: 2,
+    justifyContent: 'top',
+    alignItems: 'top',
     paddingTop: Constants.statusBarHeight,
     marginTop: 50,
     backgroundColor: '#ecf0f1',
