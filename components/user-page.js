@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Text, View, StyleSheet, FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
+import { Text, View, StyleSheet, FlatList, SafeAreaView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import Constants from 'expo-constants';
 
 export default function UserPage({navigation}) {
@@ -8,17 +8,35 @@ export default function UserPage({navigation}) {
   const [user, setUser] = useState([]);
   const [userAddress, setUserAddress] = useState([]);
   const [userCompany, setUserCompany] = useState([]);
+  const [hasError, setError] = useState(false);
 
   useEffect(() => { 
      if (!isLoaded){
-        fetch("https://jsonplaceholder.typicode.com/users/" + navigation.getParam('id')).then(response => response.json()).then(user => {
+        fetch("https://jsonplaceholder.typicode.com/users/" + navigation.getParam('id')).then(response => {
+        if (response.ok){
+            return response.json();
+          }
+          return Promise.reject(response.json());
+        }).then(user => {
         setLoaded(true);
         setUser(user);
         setUserAddress(user.address);
         setUserCompany(user.company);
-    });
+    }).catch(err => {setError(true)});
     }
   });
+
+  if (hasError){
+    return <View style= {styles.loadingIndicator}>
+    <Text style = {styles.error}> Unexpected Error! </Text>
+    </View>
+  }
+
+  if (!isLoaded){
+    return <View style= {styles.loadingIndicator}>
+    <ActivityIndicator />
+    </View>
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,6 +85,16 @@ const styles = StyleSheet.create({
     marginTop: 50,
     backgroundColor: '#ecf0f1',
     padding: 8,
+  },
+  loadingIndicator:{
+    flex: 1,
+    backgroundColor: '#ecf0f1',
+    justifyContent: 'center',
+  },
+  error: {
+    fontSize: 23,
+    fontWeight: "500",
+    textAlign: 'center',
   },
   userHeader: {
     fontSize: 20,

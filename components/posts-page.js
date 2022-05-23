@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Text, View, StyleSheet, FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
+import { Text, View, StyleSheet, FlatList, SafeAreaView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import Constants from 'expo-constants';
 
 
@@ -7,16 +7,34 @@ import Constants from 'expo-constants';
 export default function PostsPage({navigation}) {
 
   const [isLoaded, setLoaded] = useState(false);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]); 
+  const [hasError, setError] = useState(false);
 
     useEffect(() => {
     if (!isLoaded){
-    fetch("https://jsonplaceholder.typicode.com/posts").then(response => response.json()).then(posts => {
+    fetch("https://jsonplaceholder.typicode.com/posts").then(response => {
+    if (response.ok){
+       return response.json();
+     }
+     return Promise.reject(response.json());      
+    }).then(posts => {
       setPosts(posts.slice(0, 20));
       setLoaded(true);
-    });}
+    }).catch(err => {setError(true)});
+    }
   });
   
+  if (hasError){
+    return <View style= {styles.loadingIndicator}>
+    <Text style = {styles.error}> Unexpected Error! </Text>
+    </View>
+  }
+  
+  if (!isLoaded){
+    return <View style= {styles.loadingIndicator}>
+    <ActivityIndicator />
+    </View>
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -45,6 +63,16 @@ const styles = StyleSheet.create({
     marginTop: 50,
     backgroundColor: '#ecf0f1',
     padding: 8,
+  },
+  loadingIndicator:{
+    flex: 1,
+    backgroundColor: '#ecf0f1',
+    justifyContent: 'center',
+  },
+  error: {
+    fontSize: 23,
+    fontWeight: "500",
+    textAlign: 'center',
   },
   postHeader: {
     fontSize: 30,
