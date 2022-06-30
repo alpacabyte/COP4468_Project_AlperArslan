@@ -4,21 +4,21 @@ import Constants from 'expo-constants';
 import { Appbar } from 'react-native-paper';
 
 
-export default function PostsPage({navigation}) {
+export default function AlbumsPage({navigation}) {
 
   const [isLoaded, setLoaded] = useState(false);
-  const [posts, setPosts] = useState([]); 
+  const [albums, setAlbums] = useState([]); 
   const [hasError, setError] = useState(false);
 
     useEffect(() => {
     if (!isLoaded){
-    fetch("https://jsonplaceholder.typicode.com/posts").then(response => {
+    fetch("https://jsonplaceholder.typicode.com/users/" + navigation.getParam('id') + "/albums").then(response => {
     if (response.ok){
        return response.json();
      }
      return Promise.reject(response.json());      
-    }).then(posts => {
-      setPosts(posts.slice(0, 20));
+    }).then(albums => {
+      setAlbums(albums);
       setLoaded(true);
     }).catch(err => {setError(true)});
     }
@@ -40,14 +40,14 @@ export default function PostsPage({navigation}) {
     <SafeAreaView style={styles.container}>
     <Appbar.Header style = {{backgroundColor: 'transparent'}}>
     <Appbar.BackAction onPress={() => {navigation.pop()}} />
-    <Text style = {styles.postHeader}>Posts</Text>
+    <Text style = {styles.postHeader}>Albums</Text>
     </Appbar.Header>
       <FlatList
-      data = {posts}
+      data = {albums}
       keyExtractor = {({id}, index) => id}
-      renderItem = {({item}) => (<TouchableOpacity onPress = {() => {navigation.navigate('PostPage', {id: item.id})}}> 
+      renderItem = {({item, index}) => (<TouchableOpacity onPress = {() => {navigation.navigate('AlbumPage', {id: item.id})}}> 
         <View style = {{borderBottomWidth : 1, marginBottom: 3}}>
-        <Text style = {styles.postText}> #{item.id}-{item.title}</Text> 
+        <Text style = {styles.postText}>#{index + 1}-{item.title}</Text> 
         </View>
       </TouchableOpacity>)}/>
     </SafeAreaView>

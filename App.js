@@ -9,6 +9,8 @@ import UsersPage from './components/users-page.js';
 import PostsPage from './components/posts-page.js';
 import UserPage from './components/user-page.js';
 import PostPage from './components/post-page.js';
+import AlbumsPage from './components/albums-page.js';
+import AlbumPage from './components/album-page.js';
 
 const AppNavigator = createStackNavigator(
   {
@@ -17,6 +19,8 @@ const AppNavigator = createStackNavigator(
     PostsPage: {screen: PostsPage},
     UserPage: {screen: UserPage},
     PostPage: {screen: PostPage},
+    AlbumsPage: {screen: AlbumsPage},
+    AlbumPage: {screen: AlbumPage},
   },
   {
     initialRouteName: 'HomePage',

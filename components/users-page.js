@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Text, View, StyleSheet, FlatList, SafeAreaView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import Constants from 'expo-constants';
-
+import { Appbar } from 'react-native-paper';
 
 export default function UsersPage({navigation}) {
 
@@ -37,9 +37,10 @@ export default function UsersPage({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-     <View style = {{borderBottomWidth : 2, marginBottom: 15}}>
-        <Text style = {styles.userHeader}> Users</Text> 
-        </View>
+    <Appbar.Header style = {{backgroundColor: 'transparent'}}>
+    <Appbar.BackAction onPress={() => {navigation.pop()}} />
+    <Text style = {styles.userHeader}>Users</Text>
+    </Appbar.Header>
       <FlatList
       data = {users}
       keyExtractor = {({id}, index) => id}
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   userHeader: {
-    fontSize: 30,
+    fontSize: 22,
     fontWeight: "500",
   },
   userText: {

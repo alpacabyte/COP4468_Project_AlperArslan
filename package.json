@@ -23,7 +23,9 @@
     "@react-navigation/native": "^3.8.4",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-safe-area-context": "3.3.2",
-    "@react-native-community/masked-view": "^0.1.0"
+    "@react-native-community/masked-view": "^0.1.0",
+    "@rneui/themed": "*",
+    "@rneui/base": "4.0.0-rc.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
